@@ -10,6 +10,6 @@ class CoursesPage extends StatefulWidget {
 class _CoursesPageState extends State<CoursesPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Text('RWCourses');
   }
 }

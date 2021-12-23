@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'strings.dart';
+import 'ui/courses/courses_page.dart';
 
 class RWCoursesApp extends StatelessWidget {
   const RWCoursesApp({Key? key}) : super(key: key);
@@ -11,6 +11,7 @@ class RWCoursesApp extends StatelessWidget {
       appBar: AppBar(
         title: Text(Strings.appTitle),
       ),
+      body: const CoursesPage(),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rays_project/rwcourses_app.dart';
-import 'package:rays_project/strings.dart';
+import '/rwcourses_app.dart';
+import 'strings.dart';
 
 void main() => runApp(MaterialApp(
       title: Strings.appTitle,

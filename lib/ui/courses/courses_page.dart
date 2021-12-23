@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rwcourses/constants.dart';
-import 'package:rwcourses/ui/course_detail/course_details_page.dart';
+import '/constants.dart';
+import '/ui/course_detail/course_details_page.dart';
 import 'courses_controller.dart';
 import '../../model/course.dart';
 import '../../repository/course_repository.dart';

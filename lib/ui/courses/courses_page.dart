@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rays_project/state/filter_state_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/constants.dart';
 import '/ui/course_detail/course_details_page.dart';
@@ -16,21 +17,29 @@ class CoursesPage extends StatefulWidget {
 
 class _CoursesPageState extends State<CoursesPage> {
   final _controller = CoursesController(CourseRepository());
-  int _filterValue = Constants.allFilter;
+  //int _filterValue = Constants.allFilter;
+  late FilterState state;
 
   @override
-  void initState() {
-    super.initState();
-    _loadValue();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    state = FilterStateContainer.of(context);
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _loadValue();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Course>>(
-        future: _controller.fetchCourses(_filterValue),
+        future: _controller.fetchCourses(state.filterValue),
         builder: (context, snapshot) {
           final courses = snapshot.data;
-          if (courses == null) {
+          if (courses == null ||
+              snapshot.connectionState != ConnectionState.done) {
             return const Center(child: CircularProgressIndicator());
           }
           return ListView.builder(
@@ -70,10 +79,10 @@ class _CoursesPageState extends State<CoursesPage> {
     );
   }
 
-  void _loadValue() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _filterValue = prefs.getInt(Constants.filterKey) ?? 0;
-    });
-  }
+  // void _loadValue() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     _filterValue = prefs.getInt(Constants.filterKey) ?? 0;
+  //   });
+  // }
 }

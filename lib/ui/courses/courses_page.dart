@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '/constants.dart';
 import '/ui/course_detail/course_details_page.dart';
 import 'courses_controller.dart';
@@ -15,11 +16,18 @@ class CoursesPage extends StatefulWidget {
 
 class _CoursesPageState extends State<CoursesPage> {
   final _controller = CoursesController(CourseRepository());
+  int _filterValue = Constants.allFilter;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadValue();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Course>>(
-        future: _controller.fetchCourses(Constants.allFilter),
+        future: _controller.fetchCourses(_filterValue),
         builder: (context, snapshot) {
           final courses = snapshot.data;
           if (courses == null) {
@@ -60,5 +68,12 @@ class _CoursesPageState extends State<CoursesPage> {
         ),
       ),
     );
+  }
+
+  void _loadValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _filterValue = prefs.getInt(Constants.filterKey) ?? 0;
+    });
   }
 }
